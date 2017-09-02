@@ -1,0 +1,2 @@
+# define your own SPI lookup org.activiti.cdi.spi.ProcessEngineLookup
+# org.sterl.jee.activiti.impl.ActivitiConfig
