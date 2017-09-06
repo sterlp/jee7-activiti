@@ -5,8 +5,17 @@
 
     <!-- lookup the JTA-Transaction manager -->
     <bean id="transactionManager" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:appserver/TransactionManager"></property>
+        <property name="jndiName" value="java:appserver/TransactionManager" />
         <property name="resourceRef" value="true" />
+    </bean>
+    <!-- using the JEE container thread factory for the managed executor service -->
+    <bean id="asyncExecutor" class="org.activiti.engine.impl.asyncexecutor.ManagedAsyncJobExecutor">
+        <property name="threadFactory">
+            <bean class="org.springframework.jndi.JndiObjectFactoryBean">
+                <property name="jndiName" value="java:comp/DefaultManagedThreadFactory" />
+                <property name="resourceRef" value="true" />
+            </bean>
+        </property>
     </bean>
 
     <!-- process engine configuration -->
@@ -14,6 +23,7 @@
         class="org.activiti.cdi.CdiJtaProcessEngineConfiguration">
         <property name="dataSourceJndiName" value="jdbc/postgresql" />
         <property name="transactionManager" ref="transactionManager" />
+        <property name="asyncExecutor" ref="asyncExecutor" />
         <!-- using externally managed transactions -->
         <property name="transactionsExternallyManaged" value="true" />
         <!-- will create the activiti DB schema automatically as needed -->
