@@ -16,3 +16,8 @@ Review the __samplebe__ table, for each POST a new entry is added here.
 * Add sample with user task
 * Programmatic bootstrap of Activiti
 * Add a test
+
+# Links
+
+* https://www.activiti.org/quick-start
+* https://www.activiti.org/userguide/#cdiintegration
